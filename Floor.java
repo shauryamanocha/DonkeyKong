@@ -21,6 +21,9 @@ public class Floor extends Actor
     public Floor(RollDirection dir){
        this.dir = dir;
     }
+    public Floor(){
+        this(RollDirection.NONE);   
+    }
     public void act() 
     {
         // Add your action code here.
@@ -30,5 +33,11 @@ public class Floor extends Actor
     }
     public int getBottomY(){
         return getY() + getImage().getHeight()/2;
+    }
+    public static int getWidth(){
+     return new Floor(RollDirection.NONE).getImage().getWidth();   
+    }
+    public static int getHeight(){
+     return new Floor(RollDirection.NONE).getImage().getHeight();   
     }
 }
