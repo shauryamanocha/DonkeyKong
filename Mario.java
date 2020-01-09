@@ -4,16 +4,8 @@ public class Mario extends Actor
     Vector speed = new Vector(0,0);
     AnimationPlayer runAnimation = new AnimationPlayer("Animations/Mario/Running/frame",2,0.01);
     int lives = 3;
-    int spriteX, spriteY;
     boolean running = false, jumping = false;
     GreenfootImage idle = new GreenfootImage("Animations/Mario/idle.png");
-
-    enum MoveType{
-        RUN,
-        JUMP,
-        RUNJUMP,
-        NONE
-    }
     public Mario(){
         idle.scale(idle.getWidth()*2,idle.getHeight()*2);
     }
@@ -34,7 +26,6 @@ public class Mario extends Actor
             speed.x = 0;   
         }
         if(jumping){
-
             if(isTouching(Floor.class)){
                 Floor floor = (Floor)getOneIntersectingObject(Floor.class);
                 if(getY()+getImage().getHeight()/2<=floor.getTopY()+1){
@@ -49,7 +40,6 @@ public class Mario extends Actor
         }
 
         if(isTouching(Floor.class)){
-
             Floor floor = (Floor)getOneIntersectingObject(Floor.class);
             System.out.printf("y: %d, fy: %d",getY(),floor.getY());
             if(getY()<floor.getY()){
