@@ -13,7 +13,7 @@ public class DK extends Actor
         if(System.currentTimeMillis() - lastTime > 2500)
         {
             lastTime = System.currentTimeMillis();
-            getWorld().addObject(new Barrel(), getX(), getY());
+            //getWorld().addObject(new Barrel(), getX(), getY());
         }
     }    
 }

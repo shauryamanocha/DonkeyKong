@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=AnimationPlayer
+comment1.params=dir\ frames\ speed
+comment1.target=AnimationPlayer(java.lang.String,\ int,\ double)
+comment2.params=scaleX\ scaleY\ mirrored
+comment2.target=greenfoot.GreenfootImage\ getCurrentFrame(int,\ int,\ boolean)
+comment3.params=
+comment3.target=int\ getAnimIndex()
+comment4.params=
+comment4.target=void\ resetTimer()
+numComments=5
