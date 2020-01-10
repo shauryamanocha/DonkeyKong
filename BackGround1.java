@@ -39,5 +39,6 @@ public class BackGround1 extends World
         addObject(new Heart(), 1450, 30);
         addObject(new Heart(), 1395, 30);
         addObject(new Heart(), 1340, 30);
+        addObject(new Ladder(), 700, 333);
     }
 }
