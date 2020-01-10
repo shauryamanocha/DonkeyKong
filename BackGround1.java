@@ -16,29 +16,33 @@ public class BackGround1 extends World
     public BackGround1()
     {    
         super(600, 600, 1); 
-        addFloors(3,2,3,2,0.3f);
+        addFloors(3,1,3,2,1f);
         addObject(new DK(), 200, 150);
         addObject(new Mario(), 125, 500);
     }
 
     private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability){
         for(int i = 1;i<=numFloors;i++){
-            int lowestX = Integer.MAX_VALUE,highestX = Integer.MIN_VALUE;
+            int startX = -1;
+            int endX = -1;
             int y = getHeight()-Ladder.getHeight()*i*ladderLengths;
+            boolean floorsOverlap = true;
             for(int j = 0;j<floorSegmentsPerLevel;j++){
                 int x = -1;
                 if(i%2 == 0){
                     x = getWidth()-j*Floor.getWidth()-Floor.getWidth()/2;
+                    startX = getWidth()-Floor.getWidth()/2;
+                    endX = getWidth()-floorSegmentsPerLevel*Floor.getWidth()-Floor.getWidth()/2;
                 }else{
                     x = j*Floor.getWidth()+Floor.getWidth()/2;
+                    startX = Floor.getWidth()/2;
+                    endX = floorSegmentsPerLevel*Floor.getWidth()+Floor.getWidth()/2;
                 }
-                lowestX = Math.min(x,lowestX);
-                highestX = Math.max(x,highestX);
                 addObject(new Floor(),x,y);
             }
-            lowestX-= Floor.getWidth()/2;
-            highestX+=Floor.getWidth()/2;
-            addLadders(lowestX,highestX,y,ladderLengths,(highestX-lowestX)/maxLadders,ladderProbability);
+            if(floorsOverlap){
+                addLadders(startX,endX,y,ladderLengths,(endX-startX)/maxLadders,ladderProbability);
+            }
 
         }
         addGroundFloors();
