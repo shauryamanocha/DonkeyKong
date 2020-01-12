@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.ArrayList;
 
 /**
  * Write a description of class BackGround1 here.
@@ -16,52 +17,65 @@ public class BackGround1 extends World
     public BackGround1()
     {    
         super(600, 600, 1); 
-        addFloors(3,1,3,2,1f);
+        addFloors(3,2,3,2,0.35f);
         addObject(new DK(), 200, 150);
         addObject(new Mario(), 125, 500);
     }
 
     private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability){
         for(int i = 1;i<=numFloors;i++){
-            int startX = -1;
-            int endX = -1;
             int y = getHeight()-Ladder.getHeight()*i*ladderLengths;
-            boolean floorsOverlap = true;
+            int x1 = floorSegmentsPerLevel*Floor.getWidth()-Ladder.getWidth()/2;
+            int x2 = getWidth()-floorSegmentsPerLevel*Floor.getWidth()+Ladder.getWidth()/2;
             for(int j = 0;j<floorSegmentsPerLevel;j++){
                 int x = -1;
                 if(i%2 == 0){
                     x = getWidth()-j*Floor.getWidth()-Floor.getWidth()/2;
-                    startX = getWidth()-Floor.getWidth()/2;
-                    endX = getWidth()-floorSegmentsPerLevel*Floor.getWidth()-Floor.getWidth()/2;
                 }else{
                     x = j*Floor.getWidth()+Floor.getWidth()/2;
-                    startX = Floor.getWidth()/2;
-                    endX = floorSegmentsPerLevel*Floor.getWidth()+Floor.getWidth()/2;
                 }
-                addObject(new Floor(),x,y);
+                addObject(new Floor(),x,y+10*j);
             }
-            if(floorsOverlap){
-                addLadders(startX,endX,y,ladderLengths,(endX-startX)/maxLadders,ladderProbability);
+            if(x1>x2){
+                addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability);
             }
-
         }
         addGroundFloors();
     }
 
-    private void addLadders(int startX, int endX, int y, int segments, int spacing, float probability){
-        for(int i = 0;i<(endX-startX)/spacing;i++){
+    private void addLadders(int x1, int x2, int y, int segments, int numLadders, float probability){
+        ArrayList<Vector> positions = new ArrayList<Vector>();
+        for(int i = 0;i<numLadders;i++){
             if(Math.random()<probability){
-                for(int j = -1;j<segments-1;j++){
-                    addObject(new Ladder(),startX+spacing*i,y+Ladder.getHeight()+j*Ladder.getHeight());
+                Vector current = new Vector(x2+(float)Math.random()*(x1-x2),y);
+                if(positions.size() == 0){
+                    for(int j = 0;j<segments;j++){
+                        addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
+                    }
+                    positions.add(current.copy());
+                }else{
+                    boolean hasPlaced = false;
+                    while(!hasPlaced){
+                        current = new Vector(x2+(float)Math.random()*(x1-x2),y);
+                        for(Vector v : positions){
+                            if(current.dist(v)>Ladder.getWidth()*2){
+                                hasPlaced = true;
+                            }
+                        }
+                        if(hasPlaced){
+                            positions.add(current.copy());
+                            for(int j = 0;j<segments;j++){
+                                addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
     private void addGroundFloors(){
-        System.out.println(Floor.getWidth()+", "+getWidth());
         for(int i = 0;i<Math.ceil(getWidth()/(float)Floor.getWidth());i++){
-            System.out.println(i);
             addObject(new Floor(),Floor.getWidth()/2+i*Floor.getWidth(),getHeight()-Floor.getHeight()/2); 
         }
     }
