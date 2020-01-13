@@ -34,7 +34,7 @@ public class BackGround1 extends World
                 }else{
                     x = j*Floor.getWidth()+Floor.getWidth()/2;
                 }
-                addObject(new Floor(),x,y+10*j);
+                addObject(new Floor(),x,y);
             }
             if(x1>x2){
                 addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability);
