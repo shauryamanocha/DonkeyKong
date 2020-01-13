@@ -15,29 +15,11 @@ public class BackGround1 extends World
      */
     public BackGround1()
     {    
-        super(1500, 1000, 1); 
+        super(600, 600, 1); 
         addObject(new DK(), 200, 150);
-        addObject(new Floor(), 125, 219);
-        addObject(new Floor(), 375, 219);
-        addObject(new Floor(), 625, 219);
-        addObject(new Floor(), 875, 219);
-        addObject(new Floor2(), 625, 500);
-        addObject(new Floor2(), 875, 500);
-        addObject(new Floor2(), 1125, 500);
-        addObject(new Floor2(), 1375, 500);
-        addObject(new Floor(), 125, 781);
-        addObject(new Floor(), 375, 781);
-        addObject(new Floor(), 625, 781);
-        addObject(new Floor(), 875, 781);
-        addObject(new Floor2(), 125, 1000);
-        addObject(new Floor2(), 375, 1000);
-        addObject(new Floor2(), 625, 1000);
-        addObject(new Floor2(), 875, 1000);
-        addObject(new Floor2(), 1125, 1000);
-        addObject(new Floor2(), 1375, 1000);
-        addObject(new Mario(), 125, 940);
-        addObject(new Heart(), 1450, 55);
-        addObject(new Heart(), 1395, 55);
-        addObject(new Heart(), 1340, 55);
+
+        addObject(new Mario(), 125, 500);
+        addObject(new Floor(Floor.RollDirection.NONE),125,600);
+        addObject(new Floor(Floor.RollDirection.NONE),250,500);
     }
 }
