@@ -15,6 +15,7 @@ public class Heart extends Actor
     public void act() 
     {
         GreenfootImage heart = getImage();
+        heart.scale(50, 50);
         int xPos = getX();
         
         if(xPos== 1340 && Mario.Lives == 2)

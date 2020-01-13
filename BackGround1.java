@@ -36,9 +36,8 @@ public class BackGround1 extends World
         addObject(new Floor2(), 1125, 1000);
         addObject(new Floor2(), 1375, 1000);
         addObject(new Mario(), 125, 940);
-        addObject(new Heart(), 1450, 30);
-        addObject(new Heart(), 1395, 30);
-        addObject(new Heart(), 1340, 30);
-        addObject(new Ladder(), 700, 333);
+        addObject(new Heart(), 1450, 55);
+        addObject(new Heart(), 1395, 55);
+        addObject(new Heart(), 1340, 55);
     }
 }
