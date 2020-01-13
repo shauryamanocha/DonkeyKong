@@ -78,12 +78,29 @@ public class Mario extends Actor
     int speed;
     String Marioimage = "mariopixelCopy.png";
     long lastTime;
-    public static int Lives = 3;
+    public static int Lives;
+    
+    public Mario() {  
+      Lives = 3;
+    }
+    
     public void act() 
     {
         speed = speed + 1;
+        if(isTouching(Ladder.class))
+        {
+            speed = 0;
+            if(Greenfoot.isKeyDown("up"))
+                {
+                    speed = - 8;
+                }
+            if(Greenfoot.isKeyDown("down"))
+                {
+                    speed = + 8;
+                }
+        }
         setLocation( getX(), getY() + speed);
-        getWorld().showText("Lives : "+ Lives +"",1430, 90);
+        getWorld().showText("Lives : "+ Lives +"",1430, 60);
         if(isTouching(Barrel.class))
         {
             removeTouching(Barrel.class);
@@ -94,24 +111,30 @@ public class Mario extends Actor
             getWorld().showText("GAME OVER", 750, 600);
             Greenfoot.stop();
         }
+        if(speed <= 0)
+        {
+            while(isTouching(Floor.class)&!isTouching(Ladder.class))
+            {
+                speed = 0;
+                setLocation(getX(), getY() + 1);
+            }
+        }
         if(speed > 0)
         {
             while(isTouching(Floor.class))
             {
-                speed = 0;
-                setLocation(getX(), getY() - 1);
-                if(Greenfoot.isKeyDown("up"))
+                if(isTouching(Ladder.class))
                 {
-                    speed = - 27;
+                    
                 }
-            }
-        }
-        if(speed <= 0)
-        {
-            while(isTouching(Floor.class))
-            {
-                speed = 0;
-                setLocation(getX(), getY() + 1);
+                else{
+                    speed = 0;
+                    setLocation(getX(), getY() - 1);
+                    if(Greenfoot.isKeyDown("up"))
+                    {
+                        speed = - 27;
+                    }
+                }
             }
         }    
         if(Greenfoot.isKeyDown("left"))
@@ -152,6 +175,7 @@ public class Mario extends Actor
         }
         if(Greenfoot.isKeyDown("down"))
         {
+            
             speed = 50;
         }
     } 
