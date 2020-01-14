@@ -2,6 +2,8 @@
 comment0.target=Vector
 comment1.params=x\ y\ z
 comment1.target=Vector(float,\ float,\ float)
+comment10.params=
+comment10.target=Vector\ copy()
 comment2.params=
 comment2.target=Vector()
 comment3.params=x\ y
@@ -16,4 +18,6 @@ comment7.params=x\ y
 comment7.target=void\ set(float,\ float)
 comment8.params=
 comment8.target=java.lang.String\ toString()
-numComments=9
+comment9.params=v
+comment9.target=float\ dist(Vector)
+numComments=11
