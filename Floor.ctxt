@@ -1,5 +1,25 @@
 #BlueJ class context
 comment0.target=Floor
+comment0.text=\n\ Write\ a\ description\ of\ class\ Floor\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=dir
+comment1.target=Floor(Floor.RollDirection)
+comment2.params=
+comment2.target=Floor()
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=int\ getTopY()
+comment5.params=
+comment5.target=int\ getBottomY()
+comment6.params=
+comment6.target=int\ getWidth()
+comment7.params=
+comment7.target=int\ getHeight()
+numComments=8
+comment4.target=int\ getBottomY()
+numComments=5
+#BlueJ class context
+comment0.target=Floor
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Floor\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ act()

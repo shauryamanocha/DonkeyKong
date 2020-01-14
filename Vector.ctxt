@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Vector
+comment1.params=x\ y\ z
+comment1.target=Vector(float,\ float,\ float)
+comment10.params=
+comment10.target=Vector\ copy()
+comment2.params=
+comment2.target=Vector()
+comment3.params=x\ y
+comment3.target=Vector(float,\ float)
+comment4.params=
+comment4.target=Vector\ Randomize2D()
+comment5.params=v
+comment5.target=void\ add(Vector)
+comment6.params=x\ y\ z
+comment6.target=void\ set(float,\ float,\ float)
+comment7.params=x\ y
+comment7.target=void\ set(float,\ float)
+comment8.params=
+comment8.target=java.lang.String\ toString()
+comment9.params=v
+comment9.target=float\ dist(Vector)
+numComments=11

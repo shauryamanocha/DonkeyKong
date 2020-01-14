@@ -3,6 +3,7 @@ public class DK extends Actor
 {
     long lastTime;
     long danceTime;
+
     public void act() 
     {
         if(isTouching(Mario.class))
@@ -32,6 +33,12 @@ public class DK extends Actor
         if(System.currentTimeMillis() - danceTime > 6000)
         {
             danceTime = System.currentTimeMillis();
+
+        if(System.currentTimeMillis() - lastTime > 2500)
+        {
+            lastTime = System.currentTimeMillis();
+            //getWorld().addObject(new Barrel(), getX(), getY());
+
         }
     }    
 }
