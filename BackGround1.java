@@ -20,7 +20,7 @@ public class BackGround1 extends World
     {    
         super(600, 600, 1); 
         addFloors(3,2,3,2,1.0f,1.0f);
-        addObject(new DK(), 200, 150);
+        addObject(new DK(), 180, 120);
 
         addObject(mario, 125, 500);
         for(int i = 0;i<hearts.length;i++){

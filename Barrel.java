@@ -28,9 +28,11 @@ public class Barrel extends Actor
             if(touching!=null){
                 speed.y = 0;
                 if(touching.dir == Floor.RollDirection.RIGHT){
-                    speed.x = 5;
+                    speed.x = 2;
+                    turn(8);
                 }else{
-                    speed.x = -5;   
+                    speed.x = -2;   
+                    turn(-8);
                 }
             }else{
                 speed.y++;
