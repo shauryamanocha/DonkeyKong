@@ -42,7 +42,6 @@ public class Vector{
         float dx = Math.abs(v.x-x);
         float dy = Math.abs(v.y-y);
         float dxy = (float)Math.sqrt(dx*dx+dy*dy);
-        System.out.println("dist: "+dxy+", "+Ladder.getWidth());
         return dxy;
     }
 

@@ -17,12 +17,12 @@ public class BackGround1 extends World
     public BackGround1()
     {    
         super(600, 600, 1); 
-        addFloors(3,2,3,2,0.35f);
+        addFloors(3,2,3,2,1.0f,1.0f);
         addObject(new DK(), 200, 150);
         addObject(new Mario(), 125, 500);
     }
 
-    private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability){
+    private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability, float brokenLadderProb){
         for(int i = 1;i<=numFloors;i++){
             int y = getHeight()-Ladder.getHeight()*i*ladderLengths;
             int x1 = floorSegmentsPerLevel*Floor.getWidth()-Ladder.getWidth()/2;
@@ -37,19 +37,26 @@ public class BackGround1 extends World
                 addObject(new Floor(),x,y);
             }
             if(x1>x2){
-                addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability);
+                addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability,brokenLadderProb);
             }
         }
         addGroundFloors();
     }
 
-    private void addLadders(int x1, int x2, int y, int segments, int numLadders, float probability){
+    private void addLadders(int x1, int x2, int y, int segments, int numLadders, float probability,float brokenProbability){
         ArrayList<Vector> positions = new ArrayList<Vector>();
         for(int i = 0;i<numLadders;i++){
             if(Math.random()<probability){
+                boolean broken = Math.random()<brokenProbability;
+                int brokenIndex = -1;
+                if(broken){
+                    brokenIndex = (int)(Math.random()*segments);
+                    System.out.println("bki: "+brokenIndex);
+                }
                 Vector current = new Vector(x2+(float)Math.random()*(x1-x2),y);
                 if(positions.size() == 0){
                     for(int j = 0;j<segments;j++){
+                        if(j == brokenIndex) break;
                         addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
                     }
                     positions.add(current.copy());
@@ -64,7 +71,9 @@ public class BackGround1 extends World
                         }
                         if(hasPlaced){
                             positions.add(current.copy());
+
                             for(int j = 0;j<segments;j++){
+                                if(j == brokenIndex) break;
                                 addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
                             }
                         }
