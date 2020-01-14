@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #BlueJ class context
 comment0.target=Mario
 comment1.params=
@@ -8,12 +7,3 @@ comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ updateMovement()
 numComments=4
-=======
-#BlueJ class context
-comment0.target=Mario
-comment1.params=
-comment1.target=Mario()
-comment2.params=
-comment2.target=void\ act()
-numComments=3
->>>>>>> master
