@@ -14,6 +14,14 @@ public class Ladder extends Actor
      */
     public void act() 
     {
-        
+        // Add your action code here.
     }    
+
+    public static int getHeight(){
+        return new Ladder().getImage().getHeight();   
+    }
+
+    public static int getWidth(){
+        return new Ladder().getImage().getWidth();   
+    }
 }
