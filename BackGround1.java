@@ -14,12 +14,19 @@ public class BackGround1 extends World
      * Constructor for objects of class BackGround1.
      * 
      */
+    Mario mario = new Mario();
+    Heart[] hearts = new Heart[mario.lives];
     public BackGround1()
     {    
         super(600, 600, 1); 
         addFloors(3,2,3,2,1.0f,1.0f);
         addObject(new DK(), 200, 150);
-        addObject(new Mario(), 125, 500);
+
+        addObject(mario, 125, 500);
+        for(int i = 0;i<hearts.length;i++){
+            hearts[i] = new Heart(i,mario);
+            addObject(hearts[i], 50*(i+1), 50);
+        }
     }
 
     private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability, float brokenLadderProb){
@@ -51,7 +58,6 @@ public class BackGround1 extends World
                 int brokenIndex = -1;
                 if(broken){
                     brokenIndex = (int)(Math.random()*segments);
-                    System.out.println("bki: "+brokenIndex);
                 }
                 Vector current = new Vector(x2+(float)Math.random()*(x1-x2),y);
                 if(positions.size() == 0){

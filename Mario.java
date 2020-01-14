@@ -8,10 +8,12 @@ public class Mario extends Actor
     GreenfootImage idle = new GreenfootImage("Animations/Mario/idle.png");
     GreenfootImage idleFlipped = new GreenfootImage("Animations/Mario/idle.png");
     int dir = 1;
+    
     public Mario(){
         idle.scale(idle.getWidth()*2,idle.getHeight()*2);
         idleFlipped.mirrorHorizontally();
         idleFlipped.scale(idle.getWidth(),idle.getHeight());
+        
     }
 
     public void act() 
