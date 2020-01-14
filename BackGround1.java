@@ -34,14 +34,17 @@ public class BackGround1 extends World
             int y = getHeight()-Ladder.getHeight()*i*ladderLengths;
             int x1 = floorSegmentsPerLevel*Floor.getWidth()-Ladder.getWidth()/2;
             int x2 = getWidth()-floorSegmentsPerLevel*Floor.getWidth()+Ladder.getWidth()/2;
+            Floor.RollDirection rollDir = Floor.RollDirection.NONE;
             for(int j = 0;j<floorSegmentsPerLevel;j++){
                 int x = -1;
                 if(i%2 == 0){
                     x = getWidth()-j*Floor.getWidth()-Floor.getWidth()/2;
+                    rollDir = Floor.RollDirection.LEFT;
                 }else{
                     x = j*Floor.getWidth()+Floor.getWidth()/2;
+                    rollDir = Floor.RollDirection.RIGHT;
                 }
-                addObject(new Floor(),x,y);
+                addObject(new Floor(rollDir),x,y);
             }
             if(x1>x2){
                 addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability,brokenLadderProb);
