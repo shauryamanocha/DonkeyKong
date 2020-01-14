@@ -19,15 +19,18 @@ public class Barrel extends Actor
         {
             getWorld().removeObject(this);
         } else{
-            /*while(isTouching(Floor.class))
-            {
-                //Floor collider = (Floor)getOneIntersectingObject(Floor.class);
-                speed.set(-3,0);
-                turn(-8);
-            }*/
-        }
-        pos.add(speed);
-        
+          setLocation(getX(), getY() + 3);
+          while(isTouching(Floor2.class))
+          {
+            setLocation(getX() - 3, getY() - 3);
+            turn(-8);
+          }
+          while(isTouching(Floor.class))
+          {
+            setLocation(getX() + 3, getY() - 3);
+            turn(8);
+          }
+       }
     }
 }
  
