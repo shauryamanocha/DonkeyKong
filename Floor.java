@@ -12,12 +12,12 @@ public class Floor extends Actor
      * Act - do whatever the Floor wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    static enum RollDirection{
+    public static enum RollDirection{
      LEFT,
      RIGHT,
      NONE
     }
-    RollDirection dir;
+    public RollDirection dir;
     public Floor(RollDirection dir){
        this.dir = dir;
     }

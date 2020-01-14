@@ -23,7 +23,7 @@ public class Heart extends Actor
     }
     public void act() 
     {
-        if(mario.lives<index){
+        if(mario.lives<=index){
          getWorld().removeObject(this);
         }
     }    
