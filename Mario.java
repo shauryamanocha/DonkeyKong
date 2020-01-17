@@ -8,6 +8,7 @@ public class Mario extends Actor
     GreenfootImage idle = new GreenfootImage("Animations/Mario/idle.png");
     GreenfootImage idleFlipped = new GreenfootImage("Animations/Mario/idle.png");
     int dir = 1;
+    public static int score = 0;
     
     public Mario(){
         idle.scale(idle.getWidth()*2,idle.getHeight()*2);
@@ -32,6 +33,15 @@ public class Mario extends Actor
             speed.x = 0;   
         }
         if(jumping){
+            for(int i = 0; i < 5; i++)
+            {
+                int bX = BackGround1.barrel[i].getX();
+                int bY = BackGround1.barrel[i].getY();
+                if(Math.abs(bX)-Math.abs(getX())<=20 || Math.abs(bY)-Math.abs(getY())<=100)
+                {
+                    score += 100;
+                }
+            }
             if(isTouching(Floor.class)){
                 Floor floor = (Floor)getOneIntersectingObject(Floor.class);
                 if(getY()+getImage().getHeight()/2<=floor.getTopY()+1){
@@ -74,6 +84,7 @@ public class Mario extends Actor
         String[] runKeys = new String[]{"a","d"};
         String[] jumpKeys = new String[]{"w"};
         String[] downKeys = new String[]{"s"};
+        long timeSinceJump = 0;
         running = false;
         jumping = false;
         goingDown = false;
@@ -83,8 +94,9 @@ public class Mario extends Actor
                 break;
             }
         }
-        for(String s : jumpKeys){
-            if(Greenfoot.isKeyDown(s)){
+        for(String w : jumpKeys){
+            timeSinceJump = System.currentTimeMillis();
+            if(Greenfoot.isKeyDown(w) || Greenfoot.isKeyDown(w) && System.currentTimeMillis() - timeSinceJump < 500){
                 jumping = true;
                 break;
             }

@@ -16,13 +16,19 @@ public class BackGround1 extends World
      */
     Mario mario = new Mario();
     Heart[] hearts = new Heart[mario.lives];
+    public static Barrel[] barrel = new Barrel[5];
+    public static int barrelcounter = 0;
     public BackGround1()
     {    
         super(600, 600, 1); 
         addFloors(3,2,3,2,1.0f,1.0f);
-        addObject(new DK(), 180, 120);
-
         addObject(mario, 125, 500);
+        for(int i = 0; i < 5; i++){
+            barrel[i] = new Barrel();
+            addObject(barrel[i], 180, 120);
+        }
+        addObject(new DK(), 180, 120);        
+        showText(""+Mario.score, 570,10);
         for(int i = 0;i<hearts.length;i++){
             hearts[i] = new Heart(i,mario);
             addObject(hearts[i], 50*(i+1), 50);

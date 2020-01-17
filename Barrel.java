@@ -13,33 +13,43 @@ public class Barrel extends Actor
         speed = new Vector(0,0);
     }
 
+    public int getXPos(){
+        return getX();   
+    }
+
+    public int getYPos(){
+        return getY();   
+    }
+
     public void act() 
     {   
-        Mario mario = (Mario)getOneIntersectingObject(Mario.class);
-        if(isAtEdge() || mario!=null){
-            getWorld().removeObject(this);
-            if(mario!=null){
-             mario.lives--;   
-            }
-        }else{
-            
-            
-            Floor touching = (Floor)getOneIntersectingObject(Floor.class);
-            if(touching!=null){
-                speed.y = 0;
-                if(touching.dir == Floor.RollDirection.RIGHT){
-                    speed.x = 2;
-                    turn(8);
-                }else{
-                    speed.x = -2;   
-                    turn(-8);
+        if(this.getX() == 180 && this.getY() == 120){
+        }
+        else {
+            Mario mario = (Mario)getOneIntersectingObject(Mario.class);
+            if(isAtEdge() || mario!=null){
+                this.setLocation(180,120);
+                if(mario!=null){
+                    mario.lives--;   
                 }
             }else{
-                speed.y++;
-                speed.x = 0;
+
+                Floor touching = (Floor)getOneIntersectingObject(Floor.class);
+                if(touching!=null){
+                    speed.y = 0;
+                    if(touching.dir == Floor.RollDirection.RIGHT){
+                        speed.x = 2;
+                        turn(8);
+                    }else{
+                        speed.x = -2;   
+                        turn(-8);
+                    }
+                }else{
+                    speed.y++;
+                    speed.x = 0;
+                }
+                setLocation(getX()+(int)speed.x,getY()+(int)speed.y);
             }
-            setLocation(getX()+(int)speed.x,getY()+(int)speed.y);
         }
     }
 }
- 
