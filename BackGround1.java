@@ -19,7 +19,7 @@ public class BackGround1 extends World
     public BackGround1()
     {    
         super(600, 600, 1); 
-        addFloors(3,2,3,2,1.0f,1.0f);
+        addFloors(3,2,10,2,1.0f,0f);
         addObject(new DK(), 180, 120);
 
         addObject(mario, 125, 500);
@@ -31,7 +31,7 @@ public class BackGround1 extends World
 
     private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability, float brokenLadderProb){
         for(int i = 1;i<=numFloors;i++){
-            int y = getHeight()-Ladder.getHeight()*i*ladderLengths;
+            int y = getHeight()-(Ladder.getHeight()*i*ladderLengths);
             int x1 = floorSegmentsPerLevel*Floor.getWidth()-Ladder.getWidth()/2;
             int x2 = getWidth()-floorSegmentsPerLevel*Floor.getWidth()+Ladder.getWidth()/2;
             Floor.RollDirection rollDir = Floor.RollDirection.NONE;
@@ -47,7 +47,7 @@ public class BackGround1 extends World
                 addObject(new Floor(rollDir),x,y);
             }
             if(x1>x2){
-                addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability,brokenLadderProb);
+                addLadders(x1,x2,y-Floor.getHeight()/2,ladderLengths,maxLadders,ladderProbability,brokenLadderProb);
             }
         }
         addGroundFloors();
@@ -60,13 +60,16 @@ public class BackGround1 extends World
                 boolean broken = Math.random()<brokenProbability;
                 int brokenIndex = -1;
                 if(broken){
-                    brokenIndex = (int)(Math.random()*segments);
+                    brokenIndex = (int)(Math.random()*(segments-1));
                 }
                 Vector current = new Vector(x2+(float)Math.random()*(x1-x2),y);
                 if(positions.size() == 0){
                     for(int j = 0;j<segments;j++){
                         if(j == brokenIndex) break;
-                        addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
+                        Ladder.LADDER_TYPE currentType = Ladder.LADDER_TYPE.MIDDLE;
+                        if(j == 0) currentType = Ladder.LADDER_TYPE.TOP;
+                        if(j == segments-1) currentType = Ladder.LADDER_TYPE.BOTTOM;
+                        addObject(new Ladder(currentType),(int)current.x,(int)current.y+Ladder.getHeight()*j);
                     }
                     positions.add(current.copy());
                 }else{
@@ -80,10 +83,12 @@ public class BackGround1 extends World
                         }
                         if(hasPlaced){
                             positions.add(current.copy());
-
                             for(int j = 0;j<segments;j++){
                                 if(j == brokenIndex) break;
-                                addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
+                                Ladder.LADDER_TYPE currentType = Ladder.LADDER_TYPE.MIDDLE;
+                                if(j == 0) currentType = Ladder.LADDER_TYPE.TOP;
+                                if(j == segments-1) currentType = Ladder.LADDER_TYPE.BOTTOM;
+                                addObject(new Ladder(currentType),(int)current.x,(int)current.y+Ladder.getHeight()*j);
                             }
                         }
                     }
