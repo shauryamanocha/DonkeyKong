@@ -28,7 +28,7 @@ public class BackGround1 extends World
             addObject(barrel[i], 180, 120);
         }
         addObject(new DK(), 180, 120);        
-        showText(""+Mario.score, 570,10);
+        showText(""+mario.score, 570,10);
         for(int i = 0;i<hearts.length;i++){
             hearts[i] = new Heart(i,mario);
             addObject(hearts[i], 50*(i+1), 50);

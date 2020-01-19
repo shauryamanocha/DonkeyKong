@@ -8,13 +8,14 @@ public class Mario extends Actor
     GreenfootImage idle = new GreenfootImage("Animations/Mario/idle.png");
     GreenfootImage idleFlipped = new GreenfootImage("Animations/Mario/idle.png");
     int dir = 1;
-    public static int score = 0;
-    
+    int score = 0;
+    long timeSinceJump = 0;
+
     public Mario(){
         idle.scale(idle.getWidth()*2,idle.getHeight()*2);
         idleFlipped.mirrorHorizontally();
         idleFlipped.scale(idle.getWidth(),idle.getHeight());
-        
+
     }
 
     public void act() 
@@ -32,16 +33,28 @@ public class Mario extends Actor
         }else{
             speed.x = 0;   
         }
-        if(jumping){
+
+        if(!isTouching(Floor.class)){
             for(int i = 0; i < 5; i++)
             {
                 int bX = BackGround1.barrel[i].getX();
                 int bY = BackGround1.barrel[i].getY();
-                if(Math.abs(bX)-Math.abs(getX())<=20 || Math.abs(bY)-Math.abs(getY())<=100)
+                // had to use three if statements here because 1 if statement with and && wouldn't work
+                if((Math.abs(bX-getX())<=20))
                 {
-                    score += 100;
+                    if(Math.abs(Math.abs(bY)-Math.abs(getY())) <= 100){
+                        if(System.currentTimeMillis() - timeSinceJump  > 2000){
+                            this.score = score + 100;
+                            getWorld().showText(""+score, 570,10);
+
+                            timeSinceJump = System.currentTimeMillis();
+                        }
+                    }
                 }
             }
+        }
+
+        if(jumping){
             if(isTouching(Floor.class)){
                 Floor floor = (Floor)getOneIntersectingObject(Floor.class);
                 if(getY()+getImage().getHeight()/2<=floor.getTopY()+1){
@@ -84,7 +97,6 @@ public class Mario extends Actor
         String[] runKeys = new String[]{"a","d"};
         String[] jumpKeys = new String[]{"w"};
         String[] downKeys = new String[]{"s"};
-        long timeSinceJump = 0;
         running = false;
         jumping = false;
         goingDown = false;
@@ -94,9 +106,8 @@ public class Mario extends Actor
                 break;
             }
         }
-        for(String w : jumpKeys){
-            timeSinceJump = System.currentTimeMillis();
-            if(Greenfoot.isKeyDown(w) || Greenfoot.isKeyDown(w) && System.currentTimeMillis() - timeSinceJump < 500){
+        for(String w : jumpKeys){;
+            if(Greenfoot.isKeyDown(w)){
                 jumping = true;
                 break;
             }
