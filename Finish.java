@@ -23,9 +23,12 @@ public class Finish extends World
         addObject(new Floor2(), 875, 1000);
         addObject(new Floor2(), 1125, 1000);
         addObject(new Floor2(), 1375, 1000);*/
-        addObject(new Floor(), 120, 550);
-        addObject(new Princess(), 85, 500);
-        addObject(new Mario(), 145, 500);
-        showText("YOU WIN", 300, 300);
+       
+        //showText("YOU WIN", 750, 600);
+    }
+    public void act (){
+         
+        if(Greenfoot.isKeyDown("enter"))
+        Greenfoot.setWorld(new BackGround1());
     }
 }

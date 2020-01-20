@@ -18,12 +18,14 @@ public class BackGround1 extends World
     Heart[] hearts = new Heart[mario.lives];
     public static Barrel[] barrel = new Barrel[5];
     public static int barrelcounter = 0;
+    Stars [] starss = new Stars [15];
+    int starCounter = 2;
     public BackGround1()
     {    
         super(600, 600, 1); 
-
-        addFloors(3,2,10,2,1.0f,0f);
-
+        addFloors(3,2,3,2,1.0f,1.0f);
+        addObject(new DK(), 180, 120);
+        
         addObject(mario, 125, 500);
         for(int i = 0; i < 5; i++){
             barrel[i] = new Barrel();
@@ -34,9 +36,32 @@ public class BackGround1 extends World
         for(int i = 0;i<hearts.length;i++){
             hearts[i] = new Heart(i,mario);
             addObject(hearts[i], 50*(i+1), 50);
+            
+         
         }
+        prepare();
     }
-
+      
+    
+public void prepare(){
+    
+        for(int i = 0; i <2; i++){
+            starss[i] = new Stars();
+            int starX = Greenfoot.getRandomNumber(600);
+            int starY = Greenfoot.getRandomNumber(600);
+            addObject(starss[i], starX, starY);
+        }
+        
+    }
+     public void spawnStar(){
+            int starX = Greenfoot.getRandomNumber(600);
+            int starY = Greenfoot.getRandomNumber(600);
+            starss[starCounter] = new Stars();
+            addObject(starss[starCounter], starX, starY);
+            starCounter++;
+        }
+    
+    
     private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability, float brokenLadderProb){
         for(int i = 1;i<=numFloors;i++){
             int y = getHeight()-(Ladder.getHeight()*i*ladderLengths);
