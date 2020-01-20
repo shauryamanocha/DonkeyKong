@@ -10,9 +10,11 @@ public class Mario extends Actor
     int dir = 1;
     int score = 0;
     long timeSinceJump = 0;
-
+    int maxRunSpeed = 2;
+    int imgScaleFactor = 2;
+    
     public Mario(){
-        idle.scale(idle.getWidth()*2,idle.getHeight()*2);
+        idle.scale(idle.getWidth()*imgScaleFactor,idle.getHeight()*imgScaleFactor);
         idleFlipped.mirrorHorizontally();
         idleFlipped.scale(idle.getWidth(),idle.getHeight());
 
@@ -21,19 +23,21 @@ public class Mario extends Actor
     public void act() 
     {
         updateMovement();
-        dir = speed.x!=0?(int)Math.signum(speed.x):dir;
-        if(running){
-            if(Greenfoot.isKeyDown("a")){
-                setImage(runAnimation.getCurrentFrame(2,2,true));
-                speed.x = -3;
-            }else{
-                setImage(runAnimation.getCurrentFrame(2,2,false));
-                speed.x = 3;   
+        Floor currentFloor = (Floor)getOneIntersectingObject(Floor.class);
+        Ladder currentLadder = (Ladder)getOneIntersectingObject(Ladder.class);
+        boolean onLadder = isTouching(Ladder.class);
+        if(currentFloor==null){
+            if(!onLadder){
+                speed.y++;
             }
         }else{
-            speed.x = 0;   
-        }
-
+        speed.y = 0;
+           if(currentFloor.getY()<= getY()+getImage().getHeight()/2 && getY()-getImage().getHeight()/2<= currentFloor.getBottomY() && !onLadder){
+               setLocation(getX(),currentFloor.getBottomY()+getImage().getHeight()/2+1);
+               }
+               }
+         
+         
         if(!isTouching(Floor.class)){
             for(int i = 0; i < 5; i++)
             {
@@ -54,42 +58,29 @@ public class Mario extends Actor
             }
         }
 
-        if(jumping){
-            if(isTouching(Floor.class)){
-                Floor floor = (Floor)getOneIntersectingObject(Floor.class);
-                if(getY()+getImage().getHeight()/2<=floor.getTopY()+1){
-                    setLocation(getX(),getY()-10);
-                    if(!isTouching(Ladder.class)){
-                        speed.y = -15;
-                    }
-                }
-            }
-        } else if(!running   && !jumping){
-            setImage(dir>0?idle:idleFlipped);
+        if(running){
+            dir = Greenfoot.isKeyDown("a")?-1:1;
+            setImage(runAnimation.getCurrentFrame(imgScaleFactor, imgScaleFactor, dir==-1));
+            speed.x = dir*maxRunSpeed;
+        }else{
+            speed.x = 0;
+            setImage(dir==1?idle:idleFlipped);
         }
 
-        if(isTouching(Floor.class)){
-            Floor floor = (Floor)getOneIntersectingObject(Floor.class);
-            if(getY()<floor.getY() && !isTouching(Ladder.class)){
-                speed.y = 0;
-                setLocation(getX(),floor.getTopY()-getImage().getHeight()/2+1);
-            }else if(!isTouching(Ladder.class)){
-                speed.y = 1; 
-                setLocation(getX(),floor.getBottomY()+getImage().getHeight()/2);
+        if(jumping){
+            if(onLadder){
+                speed.y = -2;   
+            }else if(isTouching(Floor.class)){
+                speed.y = -15;   
             }
-        }else{
-            if(isTouching(Ladder.class)){
-                if(jumping){
-                    speed.y = -2;
-                }else if(goingDown){
-                    speed.y = 2;
-                }else{
-                    speed.y = 0;
-                }
-            }else{
-                speed.y++;
+        }else if(goingDown && onLadder){
+            if(currentLadder.type!=Ladder.LADDER_TYPE.BOTTOM){
+                speed.y = 2;
             }
+        }else if(onLadder){
+            speed.y = 0;   
         }
+
         setLocation((int)(getX()+speed.x), (int)(getY()+speed.y));
     }
 
