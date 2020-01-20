@@ -1,8 +1,13 @@
+
 #BlueJ class context
 comment0.target=Barrel
-comment0.text=\n\ Write\ a\ description\ of\ class\ Barrel\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Barrel\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=Barrel()
 comment2.params=
-comment2.target=void\ act()
-numComments=3
+comment2.target=int\ getXPos()
+comment3.params=
+comment3.target=int\ getYPos()
+comment4.params=
+comment4.target=void\ act()
+numComments=5

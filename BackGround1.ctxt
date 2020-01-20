@@ -1,3 +1,4 @@
+
 #BlueJ class context
 comment0.target=BackGround1
 comment0.text=\n\ Write\ a\ description\ of\ class\ BackGround1\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
@@ -10,3 +11,4 @@ comment3.target=void\ addLadders(int,\ int,\ int,\ int,\ int,\ float,\ float)
 comment4.params=
 comment4.target=void\ addGroundFloors()
 numComments=5
+

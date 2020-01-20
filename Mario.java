@@ -8,8 +8,11 @@ public class Mario extends Actor
     GreenfootImage idle = new GreenfootImage("Animations/Mario/idle.png");
     GreenfootImage idleFlipped = new GreenfootImage("Animations/Mario/idle.png");
     int dir = 1;
+    int score = 0;
+    long timeSinceJump = 0;
     int maxRunSpeed = 2;
     int imgScaleFactor = 2;
+    
     public Mario(){
         idle.scale(idle.getWidth()*imgScaleFactor,idle.getHeight()*imgScaleFactor);
         idleFlipped.mirrorHorizontally();
@@ -28,9 +31,30 @@ public class Mario extends Actor
                 speed.y++;
             }
         }else{
-            speed.y = 0;
-            if(currentFloor.getY()<= getY()+getImage().getHeight()/2 && getY()-getImage().getHeight()/2<= currentFloor.getBottomY() && !onLadder){
-                setLocation(getX(),currentFloor.getBottomY()+getImage().getHeight()/2+1);
+        speed.y = 0;
+           if(currentFloor.getY()<= getY()+getImage().getHeight()/2 && getY()-getImage().getHeight()/2<= currentFloor.getBottomY() && !onLadder){
+               setLocation(getX(),currentFloor.getBottomY()+getImage().getHeight()/2+1);
+               }
+               }
+         
+         
+        if(!isTouching(Floor.class)){
+            for(int i = 0; i < 5; i++)
+            {
+                int bX = BackGround1.barrel[i].getX();
+                int bY = BackGround1.barrel[i].getY();
+                // had to use three if statements here because 1 if statement with and && wouldn't work
+                if((Math.abs(bX-getX())<=20))
+                {
+                    if(Math.abs(Math.abs(bY)-Math.abs(getY())) <= 100){
+                        if(System.currentTimeMillis() - timeSinceJump  > 2000){
+                            this.score = score + 100;
+                            getWorld().showText(""+score, 570,10);
+
+                            timeSinceJump = System.currentTimeMillis();
+                        }
+                    }
+                }
             }
         }
 
@@ -73,8 +97,8 @@ public class Mario extends Actor
                 break;
             }
         }
-        for(String s : jumpKeys){
-            if(Greenfoot.isKeyDown(s)){
+        for(String w : jumpKeys){;
+            if(Greenfoot.isKeyDown(w)){
                 jumping = true;
                 break;
             }

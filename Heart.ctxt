@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Heart
-comment0.text=\n\ Write\ a\ description\ of\ class\ Heart\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Heart\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=index\ mario
 comment1.target=Heart(int,\ Mario)
 comment2.params=
