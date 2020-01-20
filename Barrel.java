@@ -23,12 +23,12 @@ public class Barrel extends Actor
 
     public void act() 
     {   
-        if(this.getX() == 180 && this.getY() == 120){
+        if(this.getX() == 180 && this.getY() == 70){
         }
         else {
             Mario mario = (Mario)getOneIntersectingObject(Mario.class);
             if(isAtEdge() || mario!=null){
-                this.setLocation(180,120);
+                this.setLocation(180,70);
                 if(mario!=null){
                     mario.lives--;   
                 }
