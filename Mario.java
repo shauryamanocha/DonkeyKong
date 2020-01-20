@@ -9,7 +9,8 @@ public class Mario extends Actor
     GreenfootImage idleFlipped = new GreenfootImage("Animations/Mario/idle.png");
     int dir = 1;
     int score = 0;
-    long timeSinceJump = 0;
+    long timeSincePrevJump = 0;
+    long timeSinceThisJump = 0;
     int maxRunSpeed = 2;
     int imgScaleFactor = 2;
     
@@ -47,15 +48,19 @@ public class Mario extends Actor
                 if((Math.abs(bX-getX())<=20))
                 {
                     if(Math.abs(Math.abs(bY)-Math.abs(getY())) <= 100){
-                        if(System.currentTimeMillis() - timeSinceJump  > 2000){
+                        if(System.currentTimeMillis() - timeSincePrevJump  > 2000){
                             this.score = score + 100;
                             getWorld().showText(""+score, 570,10);
 
-                            timeSinceJump = System.currentTimeMillis();
+                            timeSincePrevJump = System.currentTimeMillis();
                         }
                     }
                 }
             }
+        }
+        
+        if(System.currentTimeMillis() - timeSinceThisJump > 50 &&System.currentTimeMillis() - timeSinceThisJump < 300) {
+            speed.y = 0;
         }
 
         if(running){
@@ -68,6 +73,7 @@ public class Mario extends Actor
         }
 
         if(jumping){
+            timeSinceThisJump = System.currentTimeMillis();
             if(onLadder){
                 speed.y = -2;   
             }else if(isTouching(Floor.class)){

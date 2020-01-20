@@ -23,8 +23,7 @@ public class BackGround1 extends World
     public BackGround1()
     {    
         super(600, 600, 1); 
-        addFloors(3,2,3,2,1.0f,1.0f);
-        addObject(new DK(), 180, 120);
+        addFloors(3,2,10,2,1.0f,0f);
         
         addObject(mario, 125, 500);
         for(int i = 0; i < 5; i++){
