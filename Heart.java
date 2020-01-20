@@ -26,5 +26,11 @@ public class Heart extends Actor
         if(mario.lives<=index){
          getWorld().removeObject(this);
         }
+        
+        if(mario.lives <= 0){
+            Greenfoot.setWorld(new GameOver());
+      
+        
     }    
+}
 }
