@@ -30,6 +30,5 @@ public class Finish extends World
          
         if(Greenfoot.isKeyDown("enter"))
         Greenfoot.setWorld(new BackGround1());
-    
     }
 }

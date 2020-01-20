@@ -16,6 +16,8 @@ public class BackGround1 extends World
      */
     Mario mario = new Mario();
     Heart[] hearts = new Heart[mario.lives];
+    public static Barrel[] barrel = new Barrel[5];
+    public static int barrelcounter = 0;
     Stars [] starss = new Stars [15];
     int starCounter = 2;
     public BackGround1()
@@ -25,6 +27,12 @@ public class BackGround1 extends World
         addObject(new DK(), 180, 120);
         
         addObject(mario, 125, 500);
+        for(int i = 0; i < 5; i++){
+            barrel[i] = new Barrel();
+            addObject(barrel[i], 180, 70);
+        }
+        addObject(new DK(), 180, 80);        
+        showText(""+mario.score, 570,10);
         for(int i = 0;i<hearts.length;i++){
             hearts[i] = new Heart(i,mario);
             addObject(hearts[i], 50*(i+1), 50);
@@ -56,7 +64,7 @@ public void prepare(){
     
     private void addFloors(int numFloors, int floorSegmentsPerLevel, int ladderLengths, int maxLadders, float ladderProbability, float brokenLadderProb){
         for(int i = 1;i<=numFloors;i++){
-            int y = getHeight()-Ladder.getHeight()*i*ladderLengths;
+            int y = getHeight()-(Ladder.getHeight()*i*ladderLengths);
             int x1 = floorSegmentsPerLevel*Floor.getWidth()-Ladder.getWidth()/2;
             int x2 = getWidth()-floorSegmentsPerLevel*Floor.getWidth()+Ladder.getWidth()/2;
             Floor.RollDirection rollDir = Floor.RollDirection.NONE;
@@ -72,7 +80,7 @@ public void prepare(){
                 addObject(new Floor(rollDir),x,y);
             }
             if(x1>x2){
-                addLadders(x1,x2,y,ladderLengths,maxLadders,ladderProbability,brokenLadderProb);
+                addLadders(x1,x2,y-Floor.getHeight()/2,ladderLengths,maxLadders,ladderProbability,brokenLadderProb);
             }
         }
         addGroundFloors();
@@ -85,13 +93,16 @@ public void prepare(){
                 boolean broken = Math.random()<brokenProbability;
                 int brokenIndex = -1;
                 if(broken){
-                    brokenIndex = (int)(Math.random()*segments);
+                    brokenIndex = (int)(Math.random()*(segments-1));
                 }
                 Vector current = new Vector(x2+(float)Math.random()*(x1-x2),y);
                 if(positions.size() == 0){
                     for(int j = 0;j<segments;j++){
                         if(j == brokenIndex) break;
-                        addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
+                        Ladder.LADDER_TYPE currentType = Ladder.LADDER_TYPE.MIDDLE;
+                        if(j == 0) currentType = Ladder.LADDER_TYPE.TOP;
+                        if(j == segments-1) currentType = Ladder.LADDER_TYPE.BOTTOM;
+                        addObject(new Ladder(currentType),(int)current.x,(int)current.y+Ladder.getHeight()*j);
                     }
                     positions.add(current.copy());
                 }else{
@@ -105,10 +116,12 @@ public void prepare(){
                         }
                         if(hasPlaced){
                             positions.add(current.copy());
-
                             for(int j = 0;j<segments;j++){
                                 if(j == brokenIndex) break;
-                                addObject(new Ladder(),(int)current.x,(int)current.y+Floor.getHeight()*j);
+                                Ladder.LADDER_TYPE currentType = Ladder.LADDER_TYPE.MIDDLE;
+                                if(j == 0) currentType = Ladder.LADDER_TYPE.TOP;
+                                if(j == segments-1) currentType = Ladder.LADDER_TYPE.BOTTOM;
+                                addObject(new Ladder(currentType),(int)current.x,(int)current.y+Ladder.getHeight()*j);
                             }
                         }
                     }

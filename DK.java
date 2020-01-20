@@ -16,7 +16,8 @@ public class DK extends Actor
         {
             lastTime = System.currentTimeMillis();
             setImage("dkThrow.png");
-            getWorld().addObject(new Barrel(), getX()+50, getY());
+            BackGround1.barrel[BackGround1.barrelcounter].setLocation(getX()+50, getY());
+            BackGround1.barrelcounter = (BackGround1.barrelcounter + 1) % 5;
         }
         if(System.currentTimeMillis() - lastTime > 750)
         {
